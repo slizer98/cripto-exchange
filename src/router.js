@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import About from "@/views/About";
 import Home from "@/views/Home";
 import Error from "@/views/Error";
-import CoinDetail from "@/views/CoinDetail"
+import CoinDetail from "@/views/CoinDetail";
 
 const history = createWebHistory();
 

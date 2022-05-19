@@ -29,27 +29,52 @@
         <td>
           <b># {{ a.rank }}</b>
         </td>
-        <td>{{ a.name }}</td>
+        <td>
+          <router-link
+            class="hover:underline text-blue-600"
+            :to="{ name: 'coin-detail', params: { id: a.id } }"
+          >
+            {{ a.name }}</router-link
+          >
+          <small class="ml-1 text-gray-500">{{ a.symbol }}</small>
+        </td>
         <td>{{ dollarFilter(a.priceUsd) }}</td>
         <td>{{ dollarFilter(a.marketCapUsd) }}</td>
-        <td :class="a.changePercent24Hr.includes('-') ? 'text-red-600' : 'text-green-600'">
+        <td
+          :class="
+            a.changePercent24Hr.includes('-')
+              ? 'text-red-600'
+              : 'text-green-600'
+          "
+        >
           {{ percentFilter(a.changePercent24Hr) }}
-          </td>
-        <td class="hidden sm:block"></td>
+        </td>
+        <td class="hidden sm:block">
+          <px-button @custom-click="goToCoin(a.id)">
+            <span>Detalle</span>
+          </px-button>
+        </td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
+import PxButton from "./PxButton.vue";
 import { dollarFilter, percentFilter } from "../filter";
 export default {
   name: "PxAssetsTable",
+  components: { PxButton },
 
   props: {
     assets: {
       type: Array,
       default: () => [],
+    },
+  },
+  methods: {
+    goToCoin(id) {
+      this.$router.push({ name: "coin-detail", params: { id } });
     },
   },
   setup() {
